@@ -12,7 +12,11 @@ export default function MenuScreen({ navigation }) {
     async function fetchData() {
       try {
         const data = await getBowls();
-        setBowls(data);
+        // Remove duplicates based on id before setting
+        const uniqueBowls = data.filter((bowl, index, self) =>
+          index === self.findIndex((b) => b.id === bowl.id)
+        );
+        setBowls(uniqueBowls);
       } catch (err) {
         setError('Failed to load bowls');
       } finally {
@@ -20,7 +24,12 @@ export default function MenuScreen({ navigation }) {
       }
     }
     fetchData();
-  }, []);
+  }, [setBowls]);
+
+  // Remove duplicates as a safety measure
+  const uniqueBowls = bowls.filter((bowl, index, self) =>
+    index === self.findIndex((b) => b.id === bowl.id)
+  );
 
   if (loading) return <Text style={styles.center}>Loading...</Text>;
   if (error) return <Text style={styles.center}>{error}</Text>;
@@ -41,8 +50,8 @@ export default function MenuScreen({ navigation }) {
         </View>
       </View>
       <FlatList
-        data={bowls}
-        keyExtractor={(item) => item.id.toString()}
+        data={uniqueBowls}
+        keyExtractor={(item, index) => `bowl-${item.id}-${index}`}
         renderItem={({ item }) => (
           <View style={styles.card}>
             <Text style={styles.item}>{item.name}</Text>

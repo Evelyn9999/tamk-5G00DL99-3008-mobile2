@@ -37,5 +37,11 @@ export const useBowlStore = create((set, get) => ({
     set({ favorites: [] });
     await saveFavorites([]);
   },
-  setBowls: (bowls) => set({ bowls }),
+  setBowls: (bowls) => {
+    // Remove duplicates before setting
+    const uniqueBowls = bowls.filter((bowl, index, self) =>
+      index === self.findIndex((b) => b.id === bowl.id)
+    );
+    set({ bowls: uniqueBowls });
+  },
 }));

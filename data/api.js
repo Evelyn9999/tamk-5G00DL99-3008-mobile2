@@ -12,13 +12,18 @@ export const getBowls = async () => {
       },
     });
 
-    // Format data for app
-    return response.data.results.map((item) => ({
+    // Format data for app and remove duplicates
+    const formattedResults = response.data.results.map((item) => ({
       id: item.id,
       name: item.title,
       image: item.image,
       ingredients: [],
     }));
+
+    // Remove duplicates based on id
+    return formattedResults.filter((bowl, index, self) =>
+      index === self.findIndex((b) => b.id === bowl.id)
+    );
   } catch (error) {
     console.error('Error fetching data from Spoonacular:', error.message);
     return [];
