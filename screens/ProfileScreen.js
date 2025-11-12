@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Button, ScrollView, Alert, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Alert, TouchableOpacity } from 'react-native';
+import { Card, Button, Divider } from 'react-native-paper';
 import { useBowlStore } from '../store/useBowlStore';
 
 export default function ProfileScreen({ navigation }) {
@@ -42,79 +43,99 @@ export default function ProfileScreen({ navigation }) {
         </View>
 
         {/* Statistics Section */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Statistics</Text>
-          <View style={styles.statsContainer}>
-            <View style={styles.statCard}>
-              <Text style={styles.statNumber}>{favorites.length}</Text>
-              <Text style={styles.statLabel}>Favorites</Text>
+        <Card style={styles.cardSection}>
+          <Card.Content>
+            <Text style={styles.sectionTitle}>Statistics</Text>
+            <View style={styles.statsContainer}>
+              <View style={styles.statCard}>
+                <Text style={styles.statNumber}>{favorites.length}</Text>
+                <Text style={styles.statLabel}>Favorites</Text>
+              </View>
+              <View style={styles.statCard}>
+                <Text style={styles.statNumber}>{bowls.length}</Text>
+                <Text style={styles.statLabel}>Bowls Available</Text>
+              </View>
             </View>
-            <View style={styles.statCard}>
-              <Text style={styles.statNumber}>{bowls.length}</Text>
-              <Text style={styles.statLabel}>Bowls Available</Text>
-            </View>
-          </View>
-        </View>
+          </Card.Content>
+        </Card>
 
         {/* Quick Actions */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Quick Actions</Text>
-          <TouchableOpacity
-            style={styles.actionButton}
-            onPress={() => navigation.navigate('Favorites')}
-          >
-            <Text style={styles.actionButtonText}>❤️ View My Favorites</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.actionButton}
-            onPress={() => navigation.navigate('Menu')}
-          >
-            <Text style={styles.actionButtonText}>📋 Browse Menu</Text>
-          </TouchableOpacity>
-          {favorites.length > 0 && (
-            <TouchableOpacity
-              style={[styles.actionButton, styles.dangerButton]}
-              onPress={handleClearFavorites}
-              disabled={clearing}
+        <Card style={styles.cardSection}>
+          <Card.Content>
+            <Text style={styles.sectionTitle}>Quick Actions</Text>
+            <Button
+              mode="contained"
+              icon="heart"
+              onPress={() => navigation.navigate('Favorites')}
+              style={styles.paperButton}
             >
-              <Text style={[styles.actionButtonText, styles.dangerButtonText]}>
-                {clearing ? 'Clearing...' : '🗑️ Clear All Favorites'}
-              </Text>
-            </TouchableOpacity>
-          )}
-        </View>
+              View My Favorites
+            </Button>
+            <Button
+              mode="contained"
+              icon="menu"
+              onPress={() => navigation.navigate('Menu')}
+              style={styles.paperButton}
+            >
+              Browse Menu
+            </Button>
+            {favorites.length > 0 && (
+              <Button
+                mode="outlined"
+                icon="delete"
+                onPress={handleClearFavorites}
+                disabled={clearing}
+                textColor="#ff5252"
+                style={[styles.paperButton, styles.dangerPaperButton]}
+              >
+                {clearing ? 'Clearing...' : 'Clear All Favorites'}
+              </Button>
+            )}
+          </Card.Content>
+        </Card>
 
         {/* App Information */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>App Information</Text>
-          <View style={styles.infoRow}>
-            <Text style={styles.infoLabel}>Version</Text>
-            <Text style={styles.infoValue}>1.0.0</Text>
-          </View>
-          <View style={styles.infoRow}>
-            <Text style={styles.infoLabel}>Build</Text>
-            <Text style={styles.infoValue}>2025</Text>
-          </View>
-        </View>
+        <Card style={styles.cardSection}>
+          <Card.Content>
+            <Text style={styles.sectionTitle}>App Information</Text>
+            <Divider style={styles.divider} />
+            <View style={styles.infoRow}>
+              <Text style={styles.infoLabel}>Version</Text>
+              <Text style={styles.infoValue}>1.0.0</Text>
+            </View>
+            <Divider style={styles.divider} />
+            <View style={styles.infoRow}>
+              <Text style={styles.infoLabel}>Build</Text>
+              <Text style={styles.infoValue}>2025</Text>
+            </View>
+          </Card.Content>
+        </Card>
 
         {/* Navigation */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Navigation</Text>
           <View style={styles.navContainer}>
-            <Button
-              title="🏠 Home"
+            <TouchableOpacity
+              style={styles.navButton}
               onPress={() => navigation.navigate('Home')}
-            />
-            <View style={styles.buttonSpacing} />
-            <Button
-              title="📋 Menu"
+              activeOpacity={0.8}
+            >
+              <Text style={styles.navButtonText}>🏠 Home</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.navButton}
               onPress={() => navigation.navigate('Menu')}
-            />
-            <View style={styles.buttonSpacing} />
-            <Button
-              title="❤️ Favorites"
+              activeOpacity={0.8}
+            >
+              <Text style={styles.navButtonText}>📋 Menu</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.navButton}
               onPress={() => navigation.navigate('Favorites')}
-            />
+              activeOpacity={0.8}
+            >
+              <Text style={styles.navButtonText}>❤️ Favorites</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -174,6 +195,19 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
+  },
+  cardSection: {
+    marginBottom: 20,
+    elevation: 2,
+  },
+  paperButton: {
+    marginTop: 10,
+  },
+  dangerPaperButton: {
+    borderColor: '#ff5252',
+  },
+  divider: {
+    marginVertical: 8,
   },
   sectionTitle: {
     fontSize: 18,
@@ -237,8 +271,20 @@ const styles = StyleSheet.create({
   },
   navContainer: {
     width: '100%',
+    gap: 12,
   },
-  buttonSpacing: {
-    height: 10,
+  navButton: {
+    backgroundColor: '#f8f9fa',
+    borderWidth: 1,
+    borderColor: '#e0e0e0',
+    paddingVertical: 14,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  navButtonText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#2c3e50',
   },
 });

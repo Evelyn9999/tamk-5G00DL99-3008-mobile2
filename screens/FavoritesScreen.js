@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, FlatList, StyleSheet, Button } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { useBowlStore } from '../store/useBowlStore';
+import { THEME_COLOR } from '../config/constants';
 
 export default function FavoritesScreen({ navigation }) {
   const { favorites } = useBowlStore();
@@ -13,11 +14,20 @@ export default function FavoritesScreen({ navigation }) {
   if (uniqueFavorites.length === 0) {
     return (
       <View style={styles.container}>
-        <Text style={styles.center}>No favorite bowls yet ❤️</Text>
-        <Button
-          title="Browse Menu"
-          onPress={() => navigation.navigate('Menu')}
-        />
+        <View style={styles.emptyState}>
+          <Text style={styles.emptyIcon}>❤️</Text>
+          <Text style={styles.emptyTitle}>No favorite bowls yet</Text>
+          <Text style={styles.emptyText}>
+            Start exploring the menu and add your favorite bowls here!
+          </Text>
+          <TouchableOpacity
+            style={styles.browseButton}
+            onPress={() => navigation.navigate('Menu')}
+            activeOpacity={0.8}
+          >
+            <Text style={styles.browseButtonText}>Browse Menu</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -25,23 +35,39 @@ export default function FavoritesScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>Your Favorite Bowls</Text>
-        <Button
-          title="Menu"
+        <View>
+          <Text style={styles.title}>Your Favorite Bowls</Text>
+          <Text style={styles.subtitle}>{uniqueFavorites.length} favorite{uniqueFavorites.length !== 1 ? 's' : ''}</Text>
+        </View>
+        <TouchableOpacity
+          style={styles.iconButton}
           onPress={() => navigation.navigate('Menu')}
-        />
+          activeOpacity={0.7}
+        >
+          <Text style={styles.iconButtonText}>📋</Text>
+        </TouchableOpacity>
       </View>
       <FlatList
         data={uniqueFavorites}
         keyExtractor={(item, index) => `favorite-${item.id}-${index}`}
+        contentContainerStyle={styles.listContent}
         renderItem={({ item }) => (
-          <View style={styles.card}>
-            <Text style={styles.item}>{item.name}</Text>
-            <Button
-              title="View Details"
-              onPress={() => navigation.navigate('Bowl Builder', { bowl: item })}
-            />
-          </View>
+          <TouchableOpacity
+            style={styles.card}
+            onPress={() => navigation.navigate('Bowl Builder', { bowl: item })}
+            activeOpacity={0.8}
+          >
+            <View style={styles.cardContent}>
+              <View style={styles.favoriteIcon}>
+                <Text style={styles.favoriteIconText}>❤️</Text>
+              </View>
+              <View style={styles.cardText}>
+                <Text style={styles.itemName}>{item.name}</Text>
+                <Text style={styles.itemSubtext}>Tap to view details</Text>
+              </View>
+              <Text style={styles.arrow}>→</Text>
+            </View>
+          </TouchableOpacity>
         )}
       />
     </View>
@@ -49,25 +75,127 @@ export default function FavoritesScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20 },
+  container: {
+    flex: 1,
+    backgroundColor: '#f8f9fa',
+  },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 10,
+    padding: 20,
+    paddingTop: 10,
+    backgroundColor: '#fff',
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0',
   },
-  title: { fontSize: 22, fontWeight: 'bold' },
-  item: { fontSize: 18 },
-  center: {
-    flex: 1,
-    textAlign: 'center',
-    textAlignVertical: 'center',
-    marginBottom: 20,
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#2c3e50',
+    marginBottom: 4,
+  },
+  subtitle: {
+    fontSize: 14,
+    color: '#7f8c8d',
+  },
+  iconButton: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: '#f0f0f0',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  iconButtonText: {
+    fontSize: 20,
+  },
+  listContent: {
+    padding: 16,
   },
   card: {
-    marginVertical: 10,
-    padding: 10,
-    backgroundColor: '#eee',
-    borderRadius: 8,
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    marginBottom: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  cardContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 16,
+  },
+  favoriteIcon: {
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    backgroundColor: '#ffebee',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 16,
+  },
+  favoriteIconText: {
+    fontSize: 28,
+  },
+  cardText: {
+    flex: 1,
+  },
+  itemName: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#2c3e50',
+    marginBottom: 4,
+  },
+  itemSubtext: {
+    fontSize: 14,
+    color: '#7f8c8d',
+  },
+  arrow: {
+    fontSize: 24,
+    color: '#bdc3c7',
+    marginLeft: 8,
+  },
+  emptyState: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 40,
+  },
+  emptyIcon: {
+    fontSize: 80,
+    marginBottom: 20,
+  },
+  emptyTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#2c3e50',
+    marginBottom: 12,
+  },
+  emptyText: {
+    fontSize: 16,
+    color: '#7f8c8d',
+    textAlign: 'center',
+    marginBottom: 30,
+    paddingHorizontal: 20,
+    lineHeight: 24,
+  },
+  browseButton: {
+    backgroundColor: THEME_COLOR,
+    paddingVertical: 16,
+    paddingHorizontal: 32,
+    borderRadius: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  browseButtonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: '600',
   },
 });
