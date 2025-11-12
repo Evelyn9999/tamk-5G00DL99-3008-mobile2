@@ -4,7 +4,7 @@ import { Card, Button, Divider } from 'react-native-paper';
 import { useBowlStore } from '../store/useBowlStore';
 
 export default function ProfileScreen({ navigation }) {
-  const { favorites, bowls, clearAllFavorites } = useBowlStore();
+  const { favorites, bowls, clearAllFavorites, user, logout } = useBowlStore();
   const [clearing, setClearing] = useState(false);
 
   const handleClearFavorites = () => {
@@ -38,8 +38,8 @@ export default function ProfileScreen({ navigation }) {
           <View style={styles.avatarContainer}>
             <Text style={styles.avatar}>👤</Text>
           </View>
-          <Text style={styles.userName}>Bowl App User</Text>
-          <Text style={styles.userEmail}>user@bowlapp.com</Text>
+          <Text style={styles.userName}>{user?.name || 'Bowl App User'}</Text>
+          <Text style={styles.userEmail}>{user?.email || 'user@bowlapp.com'}</Text>
         </View>
 
         {/* Statistics Section */}
@@ -112,32 +112,68 @@ export default function ProfileScreen({ navigation }) {
         </Card>
 
         {/* Navigation */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Navigation</Text>
-          <View style={styles.navContainer}>
-            <TouchableOpacity
-              style={styles.navButton}
-              onPress={() => navigation.navigate('Home')}
-              activeOpacity={0.8}
+        <Card style={styles.cardSection}>
+          <Card.Content>
+            <Text style={styles.sectionTitle}>Navigation</Text>
+            <View style={styles.navContainer}>
+              <TouchableOpacity
+                style={styles.navButton}
+                onPress={() => navigation.navigate('Home')}
+                activeOpacity={0.8}
+              >
+                <Text style={styles.navButtonText}>🏠 Home</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.navButton}
+                onPress={() => navigation.navigate('Menu')}
+                activeOpacity={0.8}
+              >
+                <Text style={styles.navButtonText}>📋 Menu</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.navButton}
+                onPress={() => navigation.navigate('Favorites')}
+                activeOpacity={0.8}
+              >
+                <Text style={styles.navButtonText}>❤️ Favorites</Text>
+              </TouchableOpacity>
+            </View>
+          </Card.Content>
+        </Card>
+
+        {/* Logout */}
+        <Card style={styles.cardSection}>
+          <Card.Content>
+            <Button
+              mode="outlined"
+              icon="logout"
+              onPress={async () => {
+                Alert.alert(
+                  'Logout',
+                  'Are you sure you want to logout?',
+                  [
+                    {
+                      text: 'Cancel',
+                      style: 'cancel',
+                    },
+                    {
+                      text: 'Logout',
+                      style: 'destructive',
+                      onPress: async () => {
+                        await logout();
+                        // Navigation will happen automatically via App.js
+                      },
+                    },
+                  ]
+                );
+              }}
+              textColor="#ff5252"
+              style={styles.logoutButton}
             >
-              <Text style={styles.navButtonText}>🏠 Home</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.navButton}
-              onPress={() => navigation.navigate('Menu')}
-              activeOpacity={0.8}
-            >
-              <Text style={styles.navButtonText}>📋 Menu</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.navButton}
-              onPress={() => navigation.navigate('Favorites')}
-              activeOpacity={0.8}
-            >
-              <Text style={styles.navButtonText}>❤️ Favorites</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+              Logout
+            </Button>
+          </Card.Content>
+        </Card>
       </View>
     </ScrollView>
   );
@@ -286,5 +322,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     color: '#2c3e50',
+  },
+  logoutButton: {
+    borderColor: '#ff5252',
+    marginTop: 8,
   },
 });

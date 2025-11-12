@@ -2,35 +2,203 @@
   "bowls": [
     {
       "id": 1,
-      "name": "Salmon Bowl",
+      "name": "Salmon Poke Bowl",
       "description": "Fresh grilled salmon with rice, avocado, and sesame.",
       "price": 11.90,
-      "ingredients": ["Salmon", "Rice", "Avocado", "Sesame", "Soy Sauce"],
-      "image": "https://example.com/images/salmon-bowl.jpg"
+      "ingredients": ["Salmon", "Rice", "Avocado", "Sesame", "Soy Sauce", "Cucumber", "Edamame"],
+      "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=400&fit=crop"
     },
     {
       "id": 2,
-      "name": "Tofu Bowl",
+      "name": "Tofu Buddha Bowl",
       "description": "Vegan tofu bowl with quinoa, broccoli, and peanut sauce.",
       "price": 10.50,
-      "ingredients": ["Tofu", "Quinoa", "Broccoli", "Carrots", "Peanut Sauce"],
-      "image": "https://example.com/images/tofu-bowl.jpg"
+      "ingredients": ["Tofu", "Quinoa", "Broccoli", "Carrots", "Peanut Sauce", "Kale", "Red Cabbage"],
+      "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=400&fit=crop"
     },
     {
       "id": 3,
       "name": "Chicken Teriyaki Bowl",
       "description": "Grilled chicken with teriyaki glaze, rice, and vegetables.",
       "price": 12.20,
-      "ingredients": ["Chicken", "Rice", "Carrots", "Onion", "Teriyaki Sauce"],
-      "image": "https://example.com/images/chicken-teriyaki-bowl.jpg"
+      "ingredients": ["Chicken", "Rice", "Carrots", "Onion", "Teriyaki Sauce", "Bell Peppers", "Green Beans"],
+      "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=400&fit=crop"
     },
     {
       "id": 4,
-      "name": "Shrimp Bowl",
+      "name": "Shrimp Sushi Bowl",
       "description": "Juicy shrimp served with noodles, vegetables, and lime.",
       "price": 12.80,
-      "ingredients": ["Shrimp", "Noodles", "Lime", "Cabbage", "Chili Sauce"],
-      "image": "https://example.com/images/shrimp-bowl.jpg"
+      "ingredients": ["Shrimp", "Noodles", "Lime", "Cabbage", "Chili Sauce", "Mango", "Cilantro"],
+      "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=400&fit=crop"
+    },
+    {
+      "id": 5,
+      "name": "Mediterranean Grain Bowl",
+      "description": "Healthy Mediterranean bowl with grains, vegetables, and feta cheese.",
+      "price": 11.50,
+      "ingredients": ["Quinoa", "Chickpeas", "Feta Cheese", "Tomatoes", "Cucumber", "Olives", "Hummus"],
+      "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=400&fit=crop"
+    },
+    {
+      "id": 6,
+      "name": "Beef Burrito Bowl",
+      "description": "Spicy beef with rice, beans, and fresh vegetables.",
+      "price": 13.50,
+      "ingredients": ["Beef", "Rice", "Black Beans", "Corn", "Salsa", "Sour Cream", "Cheese"],
+      "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=400&fit=crop"
+    },
+    {
+      "id": 7,
+      "name": "Vegan Power Bowl",
+      "description": "Plant-based protein bowl with superfoods and vegetables.",
+      "price": 10.90,
+      "ingredients": ["Chickpeas", "Sweet Potato", "Kale", "Quinoa", "Tahini", "Beets", "Pumpkin Seeds"],
+      "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=400&fit=crop"
+    },
+    {
+      "id": 8,
+      "name": "Asian Chicken Bowl",
+      "description": "Asian-inspired chicken bowl with vegetables and rice.",
+      "price": 12.00,
+      "ingredients": ["Chicken", "Rice", "Bok Choy", "Mushrooms", "Ginger", "Garlic", "Sesame Oil"],
+      "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=400&fit=crop"
+    },
+    {
+      "id": 9,
+      "name": "Tuna Poke Bowl",
+      "description": "Fresh tuna with avocado, seaweed, and Japanese flavors.",
+      "price": 13.20,
+      "ingredients": ["Tuna", "Rice", "Avocado", "Seaweed", "Sesame Seeds", "Green Onion", "Soy Sauce"],
+      "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=400&fit=crop"
+    },
+    {
+      "id": 10,
+      "name": "Breakfast Acai Bowl",
+      "description": "Healthy acai bowl topped with fresh fruits and granola.",
+      "price": 9.50,
+      "ingredients": ["Acai", "Banana", "Strawberries", "Blueberries", "Granola", "Honey", "Coconut"],
+      "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=400&fit=crop"
+    },
+    {
+      "id": 11,
+      "name": "Thai Curry Bowl",
+      "description": "Aromatic Thai curry with vegetables and jasmine rice.",
+      "price": 11.80,
+      "ingredients": ["Curry", "Rice", "Bell Peppers", "Bamboo Shoots", "Coconut Milk", "Thai Basil", "Lime"],
+      "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=400&fit=crop"
+    },
+    {
+      "id": 12,
+      "name": "Protein Power Bowl",
+      "description": "High-protein bowl with lean meat and vegetables.",
+      "price": 13.90,
+      "ingredients": ["Grilled Chicken", "Brown Rice", "Broccoli", "Eggs", "Black Beans", "Avocado", "Salsa"],
+      "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=400&fit=crop"
+    },
+    {
+      "id": 13,
+      "name": "Quinoa Salad Bowl",
+      "description": "Fresh quinoa salad with mixed vegetables and herbs.",
+      "price": 10.20,
+      "ingredients": ["Quinoa", "Cherry Tomatoes", "Cucumber", "Red Onion", "Feta", "Olive Oil", "Lemon"],
+      "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=400&fit=crop"
+    },
+    {
+      "id": 14,
+      "name": "Korean Bibimbap Bowl",
+      "description": "Traditional Korean mixed rice bowl with vegetables and gochujang.",
+      "price": 12.50,
+      "ingredients": ["Rice", "Beef", "Carrots", "Spinach", "Bean Sprouts", "Gochujang", "Fried Egg"],
+      "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=400&fit=crop"
+    },
+    {
+      "id": 15,
+      "name": "Greek Salad Bowl",
+      "description": "Classic Greek salad in a bowl with feta and olives.",
+      "price": 10.80,
+      "ingredients": ["Lettuce", "Tomatoes", "Cucumber", "Feta Cheese", "Olives", "Red Onion", "Olive Oil"],
+      "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=400&fit=crop"
+    },
+    {
+      "id": 16,
+      "name": "Mexican Rice Bowl",
+      "description": "Spicy Mexican-style rice bowl with beans and vegetables.",
+      "price": 11.20,
+      "ingredients": ["Rice", "Black Beans", "Corn", "Bell Peppers", "Jalapenos", "Cilantro", "Lime"],
+      "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=400&fit=crop"
+    },
+    {
+      "id": 17,
+      "name": "Sesame Tofu Bowl",
+      "description": "Crispy tofu with sesame glaze and vegetables.",
+      "price": 10.60,
+      "ingredients": ["Tofu", "Rice", "Broccoli", "Carrots", "Sesame Seeds", "Soy Sauce", "Ginger"],
+      "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=400&fit=crop"
+    },
+    {
+      "id": 18,
+      "name": "Hawaiian Poke Bowl",
+      "description": "Fresh Hawaiian poke with tropical flavors.",
+      "price": 13.40,
+      "ingredients": ["Ahi Tuna", "Rice", "Avocado", "Mango", "Pineapple", "Macadamia Nuts", "Soy Sauce"],
+      "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=400&fit=crop"
+    },
+    {
+      "id": 19,
+      "name": "Falafel Bowl",
+      "description": "Crispy falafel with hummus and fresh vegetables.",
+      "price": 10.40,
+      "ingredients": ["Falafel", "Hummus", "Lettuce", "Tomatoes", "Cucumber", "Tahini", "Pita"],
+      "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=400&fit=crop"
+    },
+    {
+      "id": 20,
+      "name": "Soba Noodle Bowl",
+      "description": "Japanese soba noodles with vegetables and sesame dressing.",
+      "price": 11.60,
+      "ingredients": ["Soba Noodles", "Carrots", "Cucumber", "Edamame", "Sesame", "Soy Sauce", "Green Onion"],
+      "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=400&fit=crop"
+    },
+    {
+      "id": 21,
+      "name": "Chipotle Chicken Bowl",
+      "description": "Spicy chipotle chicken with rice and beans.",
+      "price": 12.30,
+      "ingredients": ["Chicken", "Rice", "Black Beans", "Corn", "Chipotle Sauce", "Cheese", "Sour Cream"],
+      "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=400&fit=crop"
+    },
+    {
+      "id": 22,
+      "name": "Rainbow Veggie Bowl",
+      "description": "Colorful mix of vegetables with quinoa and tahini.",
+      "price": 10.70,
+      "ingredients": ["Quinoa", "Beets", "Carrots", "Purple Cabbage", "Kale", "Tahini", "Lemon"],
+      "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=400&fit=crop"
+    },
+    {
+      "id": 23,
+      "name": "Lamb Gyro Bowl",
+      "description": "Tender lamb with tzatziki and Mediterranean vegetables.",
+      "price": 13.60,
+      "ingredients": ["Lamb", "Rice", "Tzatziki", "Tomatoes", "Onions", "Olives", "Feta"],
+      "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=400&fit=crop"
+    },
+    {
+      "id": 24,
+      "name": "Sushi Burrito Bowl",
+      "description": "Sushi ingredients in a bowl format with fresh fish.",
+      "price": 13.80,
+      "ingredients": ["Salmon", "Rice", "Avocado", "Cucumber", "Seaweed", "Sesame", "Soy Sauce"],
+      "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=400&fit=crop"
+    },
+    {
+      "id": 25,
+      "name": "Moroccan Quinoa Bowl",
+      "description": "Spiced Moroccan quinoa with vegetables and chickpeas.",
+      "price": 11.40,
+      "ingredients": ["Quinoa", "Chickpeas", "Carrots", "Raisins", "Almonds", "Cumin", "Coriander"],
+      "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=400&fit=crop"
     }
   ]
 }

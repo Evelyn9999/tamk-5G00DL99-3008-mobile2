@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { useBowlStore } from '../store/useBowlStore';
 import { THEME_COLOR } from '../config/constants';
 
@@ -34,9 +34,17 @@ export default function BowlBuilderScreen({ route, navigation }) {
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <View style={styles.header}>
-        <View style={styles.iconContainer}>
-          <Text style={styles.bowlIcon}>🥗</Text>
-        </View>
+        {bowl.image ? (
+          <Image
+            source={{ uri: bowl.image }}
+            style={styles.bowlImage}
+            defaultSource={require('../assets/icon.png')}
+          />
+        ) : (
+          <View style={styles.iconContainer}>
+            <Text style={styles.bowlIcon}>🥗</Text>
+          </View>
+        )}
         <Text style={styles.title}>{bowl.name}</Text>
       </View>
 
@@ -127,6 +135,18 @@ const styles = StyleSheet.create({
   },
   bowlIcon: {
     fontSize: 50,
+  },
+  bowlImage: {
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    marginBottom: 20,
+    backgroundColor: '#f0f0f0',
+    shadowColor: THEME_COLOR,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 8,
   },
   title: {
     fontSize: 28,

@@ -2,6 +2,8 @@ import React, { useEffect, useRef } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { PaperProvider, MD3LightTheme } from 'react-native-paper';
+import LoginScreen from './screens/LoginScreen';
+import SignUpScreen from './screens/SignUpScreen';
 import HomeScreen from './screens/HomeScreen';
 import MenuScreen from './screens/MenuScreen';
 import BowlBuilderScreen from './screens/BowlBuilderScreen';
@@ -27,12 +29,13 @@ export default function App() {
   const initialized = useRef(false);
   const initialize = useBowlStore((state) => state.initialize);
   const storeInitialized = useBowlStore((state) => state.initialized);
+  const isAuthenticated = useBowlStore((state) => state.isAuthenticated);
 
   useEffect(() => {
     // Only initialize once
     if (!initialized.current && !storeInitialized) {
       initialized.current = true;
-      // Initialize store (load favorites from storage)
+      // Initialize store (load favorites from storage and check auth)
       initialize();
       // Schedule the daily notification when the app runs
       scheduleDailyReminder();
@@ -43,7 +46,6 @@ export default function App() {
     <PaperProvider theme={theme}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="Home"
           screenOptions={{
             headerStyle: {
               backgroundColor: THEME_COLOR,
@@ -54,11 +56,31 @@ export default function App() {
             },
           }}
         >
-          <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="Menu" component={MenuScreen} />
-          <Stack.Screen name="Bowl Builder" component={BowlBuilderScreen} />
-          <Stack.Screen name="Favorites" component={FavoritesScreen} />
-          <Stack.Screen name="Profile" component={ProfileScreen} />
+          {!isAuthenticated ? (
+            <>
+              <Stack.Screen
+                name="Login"
+                component={LoginScreen}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="SignUp"
+                component={SignUpScreen}
+                options={{
+                  headerShown: true,
+                  title: 'Sign Up',
+                }}
+              />
+            </>
+          ) : (
+            <>
+              <Stack.Screen name="Home" component={HomeScreen} />
+              <Stack.Screen name="Menu" component={MenuScreen} />
+              <Stack.Screen name="Bowl Builder" component={BowlBuilderScreen} />
+              <Stack.Screen name="Favorites" component={FavoritesScreen} />
+              <Stack.Screen name="Profile" component={ProfileScreen} />
+            </>
+          )}
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>

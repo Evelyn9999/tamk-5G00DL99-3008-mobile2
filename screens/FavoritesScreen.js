@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, Image, Alert } from 'react-native';
 import { useBowlStore } from '../store/useBowlStore';
 import { THEME_COLOR } from '../config/constants';
 
 export default function FavoritesScreen({ navigation }) {
-  const { favorites } = useBowlStore();
+  const { favorites, removeFavorite } = useBowlStore();
 
   // Remove duplicates as a safety measure
   const uniqueFavorites = favorites.filter((bowl, index, self) =>
@@ -52,22 +52,53 @@ export default function FavoritesScreen({ navigation }) {
         keyExtractor={(item, index) => `favorite-${item.id}-${index}`}
         contentContainerStyle={styles.listContent}
         renderItem={({ item }) => (
-          <TouchableOpacity
-            style={styles.card}
-            onPress={() => navigation.navigate('Bowl Builder', { bowl: item })}
-            activeOpacity={0.8}
-          >
-            <View style={styles.cardContent}>
-              <View style={styles.favoriteIcon}>
-                <Text style={styles.favoriteIconText}>❤️</Text>
-              </View>
+          <View style={styles.card}>
+            <TouchableOpacity
+              style={styles.cardContent}
+              onPress={() => navigation.navigate('Bowl Builder', { bowl: item })}
+              activeOpacity={0.8}
+            >
+              {item.image ? (
+                <Image
+                  source={{ uri: item.image }}
+                  style={styles.cardImage}
+                  defaultSource={require('../assets/icon.png')}
+                />
+              ) : (
+                <View style={styles.favoriteIcon}>
+                  <Text style={styles.favoriteIconText}>❤️</Text>
+                </View>
+              )}
               <View style={styles.cardText}>
                 <Text style={styles.itemName}>{item.name}</Text>
                 <Text style={styles.itemSubtext}>Tap to view details</Text>
               </View>
               <Text style={styles.arrow}>→</Text>
-            </View>
-          </TouchableOpacity>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.removeButton}
+              onPress={() => {
+                Alert.alert(
+                  'Remove from Favorites',
+                  `Are you sure you want to remove "${item.name}" from your favorites?`,
+                  [
+                    {
+                      text: 'Cancel',
+                      style: 'cancel',
+                    },
+                    {
+                      text: 'Remove',
+                      style: 'destructive',
+                      onPress: () => removeFavorite(item.id),
+                    },
+                  ]
+                );
+              }}
+              activeOpacity={0.7}
+            >
+              <Text style={styles.removeButtonText}>✕</Text>
+            </TouchableOpacity>
+          </View>
         )}
       />
     </View>
@@ -122,11 +153,30 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
+    position: 'relative',
   },
   cardContent: {
     flexDirection: 'row',
     alignItems: 'center',
     padding: 16,
+    paddingRight: 50,
+  },
+  removeButton: {
+    position: 'absolute',
+    top: 12,
+    right: 12,
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: '#ffebee',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 1,
+  },
+  removeButtonText: {
+    fontSize: 18,
+    color: '#ff5252',
+    fontWeight: 'bold',
   },
   favoriteIcon: {
     width: 56,
@@ -139,6 +189,13 @@ const styles = StyleSheet.create({
   },
   favoriteIconText: {
     fontSize: 28,
+  },
+  cardImage: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    marginRight: 16,
+    backgroundColor: '#f0f0f0',
   },
   cardText: {
     flex: 1,

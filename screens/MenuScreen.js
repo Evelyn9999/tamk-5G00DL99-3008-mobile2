@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, ActivityIndicator, Image } from 'react-native';
 import { getBowls } from '../data/api';
 import { useBowlStore } from '../store/useBowlStore';
 import { THEME_COLOR } from '../config/constants';
@@ -105,9 +105,17 @@ export default function MenuScreen({ navigation }) {
             activeOpacity={0.8}
           >
             <View style={styles.cardContent}>
-              <View style={styles.cardIcon}>
-                <Text style={styles.cardIconText}>🥗</Text>
-              </View>
+              {item.image ? (
+                <Image
+                  source={{ uri: item.image }}
+                  style={styles.cardImage}
+                  defaultSource={require('../assets/icon.png')}
+                />
+              ) : (
+                <View style={styles.cardIcon}>
+                  <Text style={styles.cardIconText}>🥗</Text>
+                </View>
+              )}
               <View style={styles.cardText}>
                 <Text style={styles.itemName}>{item.name}</Text>
                 <Text style={styles.itemSubtext}>Tap to view details</Text>
@@ -196,6 +204,13 @@ const styles = StyleSheet.create({
   },
   cardIconText: {
     fontSize: 28,
+  },
+  cardImage: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    marginRight: 16,
+    backgroundColor: '#f0f0f0',
   },
   cardText: {
     flex: 1,
