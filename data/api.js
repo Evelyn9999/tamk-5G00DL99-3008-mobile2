@@ -1,11 +1,26 @@
 import axios from 'axios';
-import { BASE_URL } from '../config/constants';
+import { SPOON_API_KEY, SPOON_BASE_URL } from '../config/constants';
 
+// Fetch healthy bowl-style meals
 export const getBowls = async () => {
-  const res = await axios.get(`${BASE_URL}/bowls`);
-  return res.data;
-};
+  try {
+    const response = await axios.get(`${SPOON_BASE_URL}/recipes/complexSearch`, {
+      params: {
+        query: 'bowl',
+        number: 10,       // fetch 10 results
+        apiKey: SPOON_API_KEY,
+      },
+    });
 
-export const syncFavorite = async (userId, bowlId) => {
-  return axios.post(`${BASE_URL}/favorites`, { userId, bowlId });
+    // Format data for app
+    return response.data.results.map((item) => ({
+      id: item.id,
+      name: item.title,
+      image: item.image,
+      ingredients: [],
+    }));
+  } catch (error) {
+    console.error('Error fetching data from Spoonacular:', error.message);
+    return [];
+  }
 };

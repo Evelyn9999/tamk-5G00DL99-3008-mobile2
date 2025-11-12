@@ -1,7 +1,15 @@
 import * as Notifications from 'expo-notifications';
 
 export async function scheduleDailyReminder() {
-  await Notifications.requestPermissionsAsync();
+  const { status } = await Notifications.requestPermissionsAsync();
+  if (status !== 'granted') {
+    console.log('Permission not granted for notifications');
+    return;
+  }
+
+  // Cancel all existing notifications to avoid duplicates
+  await Notifications.cancelAllScheduledNotificationsAsync();
+
   await Notifications.scheduleNotificationAsync({
     content: {
       title: '🥗 Time for a healthy bowl!',
@@ -9,4 +17,6 @@ export async function scheduleDailyReminder() {
     },
     trigger: { hour: 12, minute: 0, repeats: true },
   });
+
+  console.log('✅ Daily reminder scheduled!');
 }

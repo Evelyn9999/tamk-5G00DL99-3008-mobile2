@@ -1,0 +1,36 @@
+{
+  "bowls": [
+    {
+      "id": 1,
+      "name": "Salmon Bowl",
+      "description": "Fresh grilled salmon with rice, avocado, and sesame.",
+      "price": 11.90,
+      "ingredients": ["Salmon", "Rice", "Avocado", "Sesame", "Soy Sauce"],
+      "image": "https://example.com/images/salmon-bowl.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Tofu Bowl",
+      "description": "Vegan tofu bowl with quinoa, broccoli, and peanut sauce.",
+      "price": 10.50,
+      "ingredients": ["Tofu", "Quinoa", "Broccoli", "Carrots", "Peanut Sauce"],
+      "image": "https://example.com/images/tofu-bowl.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Chicken Teriyaki Bowl",
+      "description": "Grilled chicken with teriyaki glaze, rice, and vegetables.",
+      "price": 12.20,
+      "ingredients": ["Chicken", "Rice", "Carrots", "Onion", "Teriyaki Sauce"],
+      "image": "https://example.com/images/chicken-teriyaki-bowl.jpg"
+    },
+    {
+      "id": 4,
+      "name": "Shrimp Bowl",
+      "description": "Juicy shrimp served with noodles, vegetables, and lime.",
+      "price": 12.80,
+      "ingredients": ["Shrimp", "Noodles", "Lime", "Cabbage", "Chili Sauce"],
+      "image": "https://example.com/images/shrimp-bowl.jpg"
+    }
+  ]
+}

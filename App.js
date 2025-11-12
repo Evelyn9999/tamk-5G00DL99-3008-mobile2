@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './screens/HomeScreen';
@@ -6,10 +6,21 @@ import MenuScreen from './screens/MenuScreen';
 import BowlBuilderScreen from './screens/BowlBuilderScreen';
 import FavoritesScreen from './screens/FavoritesScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import { scheduleDailyReminder } from './utils/notificationHelper';
+import { useBowlStore } from './store/useBowlStore';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  const initialize = useBowlStore((state) => state.initialize);
+
+  useEffect(() => {
+    // Initialize store (load favorites from storage)
+    initialize();
+    // Schedule the daily notification when the app runs
+    scheduleDailyReminder();
+  }, [initialize]);
+
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
