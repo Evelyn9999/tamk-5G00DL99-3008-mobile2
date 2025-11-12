@@ -7,13 +7,13 @@ import { THEME_COLOR } from '../config/constants';
 export default function MenuScreen({ navigation }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const { bowls, setBowls } = useBowlStore();
+  const { bowls, setBowls, cart } = useBowlStore();
 
   useEffect(() => {
     async function fetchData() {
       try {
         const data = await getBowls();
-        // Remove duplicates based on id before setting
+        // remove duplicates
         const uniqueBowls = data.filter((bowl, index, self) =>
           index === self.findIndex((b) => b.id === bowl.id)
         );
@@ -27,10 +27,8 @@ export default function MenuScreen({ navigation }) {
     fetchData();
   }, [setBowls]);
 
-  // Remove duplicates as a safety measure
-  const uniqueBowls = bowls.filter((bowl, index, self) =>
-    index === self.findIndex((b) => b.id === bowl.id)
-  );
+  // bowls are already cleaned up in store
+  const uniqueBowls = bowls;
 
   if (loading) {
     return (
@@ -75,18 +73,32 @@ export default function MenuScreen({ navigation }) {
       <View style={styles.header}>
         <View>
           <Text style={styles.title}>Menu</Text>
-          <Text style={styles.subtitle}>{uniqueBowls.length} bowls available</Text>
+          <Text style={styles.subtitle}>{uniqueBowls.length.toString()} bowls available</Text>
         </View>
         <View style={styles.navButtons}>
           <TouchableOpacity
             style={styles.iconButton}
+            onPress={() => navigation.navigate('Order')}
+            activeOpacity={0.7}
+          >
+            <View style={{ position: 'relative' }}>
+              <Text style={styles.iconButtonText}>🛒</Text>
+              {cart && cart.length > 0 && (
+                <View style={styles.cartBadge}>
+                  <Text style={styles.cartBadgeText}>{cart.length.toString()}</Text>
+                </View>
+              )}
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.iconButton, styles.iconButtonSpacing]}
             onPress={() => navigation.navigate('Favorites')}
             activeOpacity={0.7}
           >
             <Text style={styles.iconButtonText}>❤️</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={styles.iconButton}
+            style={[styles.iconButton, styles.iconButtonSpacing]}
             onPress={() => navigation.navigate('Profile')}
             activeOpacity={0.7}
           >
@@ -162,7 +174,6 @@ const styles = StyleSheet.create({
   },
   navButtons: {
     flexDirection: 'row',
-    gap: 12,
   },
   iconButton: {
     width: 44,
@@ -174,6 +185,26 @@ const styles = StyleSheet.create({
   },
   iconButtonText: {
     fontSize: 20,
+  },
+  iconButtonSpacing: {
+    marginLeft: 12,
+  },
+  cartBadge: {
+    position: 'absolute',
+    top: -6,
+    right: -6,
+    backgroundColor: '#ff5252',
+    borderRadius: 10,
+    minWidth: 18,
+    height: 18,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 4,
+  },
+  cartBadgeText: {
+    color: '#fff',
+    fontSize: 10,
+    fontWeight: 'bold',
   },
   listContent: {
     padding: 16,

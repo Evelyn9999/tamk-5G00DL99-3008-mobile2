@@ -7,7 +7,7 @@ export async function scheduleDailyReminder() {
     return;
   }
 
-  // Cancel all existing notifications to avoid duplicates
+  // cancel old notifications so we don't get duplicates
   await Notifications.cancelAllScheduledNotificationsAsync();
 
   await Notifications.scheduleNotificationAsync({

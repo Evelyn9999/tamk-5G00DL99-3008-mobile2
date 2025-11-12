@@ -16,10 +16,10 @@ export default function SignUpScreen({ navigation }) {
   const { signup } = useBowlStore();
 
   const handleSignup = async () => {
-    // Clear previous errors
+    // clear old errors
     setError('');
 
-    // Validation
+    // check inputs
     if (!name.trim() || !email.trim() || !password.trim() || !confirmPassword.trim()) {
       setError('All fields are required');
       return;
@@ -46,7 +46,7 @@ export default function SignUpScreen({ navigation }) {
       const result = await signup(name.trim(), email.trim(), password);
 
       if (result.success) {
-        // Navigation will happen automatically via App.js
+        // app will handle navigation
       } else {
         setError(result.error || 'Sign up failed. Please try again.');
       }

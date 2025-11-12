@@ -48,11 +48,11 @@ export default function ProfileScreen({ navigation }) {
             <Text style={styles.sectionTitle}>Statistics</Text>
             <View style={styles.statsContainer}>
               <View style={styles.statCard}>
-                <Text style={styles.statNumber}>{favorites.length}</Text>
+                <Text style={styles.statNumber}>{favorites.length.toString()}</Text>
                 <Text style={styles.statLabel}>Favorites</Text>
               </View>
               <View style={styles.statCard}>
-                <Text style={styles.statNumber}>{bowls.length}</Text>
+                <Text style={styles.statNumber}>{bowls.length.toString()}</Text>
                 <Text style={styles.statLabel}>Bowls Available</Text>
               </View>
             </View>
@@ -78,6 +78,22 @@ export default function ProfileScreen({ navigation }) {
               style={styles.paperButton}
             >
               Browse Menu
+            </Button>
+            <Button
+              mode="contained"
+              icon="star"
+              onPress={() => navigation.navigate('Member Integral')}
+              style={styles.paperButton}
+            >
+              Member Points
+            </Button>
+            <Button
+              mode="contained"
+              icon="shopping"
+              onPress={() => navigation.navigate('Order History')}
+              style={styles.paperButton}
+            >
+              Order History
             </Button>
             {favorites.length > 0 && (
               <Button
@@ -111,36 +127,6 @@ export default function ProfileScreen({ navigation }) {
           </Card.Content>
         </Card>
 
-        {/* Navigation */}
-        <Card style={styles.cardSection}>
-          <Card.Content>
-            <Text style={styles.sectionTitle}>Navigation</Text>
-            <View style={styles.navContainer}>
-              <TouchableOpacity
-                style={styles.navButton}
-                onPress={() => navigation.navigate('Home')}
-                activeOpacity={0.8}
-              >
-                <Text style={styles.navButtonText}>🏠 Home</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.navButton}
-                onPress={() => navigation.navigate('Menu')}
-                activeOpacity={0.8}
-              >
-                <Text style={styles.navButtonText}>📋 Menu</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.navButton}
-                onPress={() => navigation.navigate('Favorites')}
-                activeOpacity={0.8}
-              >
-                <Text style={styles.navButtonText}>❤️ Favorites</Text>
-              </TouchableOpacity>
-            </View>
-          </Card.Content>
-        </Card>
-
         {/* Logout */}
         <Card style={styles.cardSection}>
           <Card.Content>
@@ -161,7 +147,7 @@ export default function ProfileScreen({ navigation }) {
                       style: 'destructive',
                       onPress: async () => {
                         await logout();
-                        // Navigation will happen automatically via App.js
+                        // app will handle navigation
                       },
                     },
                   ]
@@ -221,17 +207,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#666',
   },
-  section: {
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 20,
-    marginBottom: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
   cardSection: {
     marginBottom: 20,
     elevation: 2,
@@ -269,26 +244,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#666',
   },
-  actionButton: {
-    backgroundColor: '#8BC34A',
-    padding: 15,
-    borderRadius: 8,
-    marginBottom: 10,
-    alignItems: 'center',
-  },
-  actionButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  dangerButton: {
-    backgroundColor: '#f5f5f5',
-    borderWidth: 1,
-    borderColor: '#ff5252',
-  },
-  dangerButtonText: {
-    color: '#ff5252',
-  },
   infoRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -304,24 +259,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#333',
     fontWeight: '600',
-  },
-  navContainer: {
-    width: '100%',
-    gap: 12,
-  },
-  navButton: {
-    backgroundColor: '#f8f9fa',
-    borderWidth: 1,
-    borderColor: '#e0e0e0',
-    paddingVertical: 14,
-    paddingHorizontal: 20,
-    borderRadius: 10,
-    alignItems: 'center',
-  },
-  navButtonText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#2c3e50',
   },
   logoutButton: {
     borderColor: '#ff5252',

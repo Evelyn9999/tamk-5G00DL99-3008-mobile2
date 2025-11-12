@@ -9,13 +9,17 @@ import MenuScreen from './screens/MenuScreen';
 import BowlBuilderScreen from './screens/BowlBuilderScreen';
 import FavoritesScreen from './screens/FavoritesScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import MemberIntegralScreen from './screens/MemberIntegralScreen';
+import OrderScreen from './screens/OrderScreen';
+import OrderHistoryScreen from './screens/OrderHistoryScreen';
+import CustomHeader from './components/CustomHeader';
 import { scheduleDailyReminder } from './utils/notificationHelper';
 import { useBowlStore } from './store/useBowlStore';
 import { THEME_COLOR } from './config/constants';
 
 const Stack = createNativeStackNavigator();
 
-// Custom theme for React Native Paper
+// theme colors
 const theme = {
   ...MD3LightTheme,
   colors: {
@@ -32,12 +36,12 @@ export default function App() {
   const isAuthenticated = useBowlStore((state) => state.isAuthenticated);
 
   useEffect(() => {
-    // Only initialize once
+    // make sure it only runs once
     if (!initialized.current && !storeInitialized) {
       initialized.current = true;
-      // Initialize store (load favorites from storage and check auth)
+      // load saved data
       initialize();
-      // Schedule the daily notification when the app runs
+      // set up daily reminder
       scheduleDailyReminder();
     }
   }, [initialize, storeInitialized]);
@@ -74,11 +78,62 @@ export default function App() {
             </>
           ) : (
             <>
-              <Stack.Screen name="Home" component={HomeScreen} />
-              <Stack.Screen name="Menu" component={MenuScreen} />
-              <Stack.Screen name="Bowl Builder" component={BowlBuilderScreen} />
-              <Stack.Screen name="Favorites" component={FavoritesScreen} />
-              <Stack.Screen name="Profile" component={ProfileScreen} />
+              <Stack.Screen
+                name="Home"
+                component={HomeScreen}
+                options={({ navigation }) => ({
+                  header: () => <CustomHeader navigation={navigation} title="Home" />,
+                })}
+              />
+              <Stack.Screen
+                name="Menu"
+                component={MenuScreen}
+                options={({ navigation }) => ({
+                  header: () => <CustomHeader navigation={navigation} title="Menu" />,
+                })}
+              />
+              <Stack.Screen
+                name="Bowl Builder"
+                component={BowlBuilderScreen}
+                options={({ navigation }) => ({
+                  header: () => <CustomHeader navigation={navigation} title="Bowl Builder" />,
+                })}
+              />
+              <Stack.Screen
+                name="Favorites"
+                component={FavoritesScreen}
+                options={({ navigation }) => ({
+                  header: () => <CustomHeader navigation={navigation} title="Favorites" />,
+                })}
+              />
+              <Stack.Screen
+                name="Profile"
+                component={ProfileScreen}
+                options={({ navigation }) => ({
+                  header: () => <CustomHeader navigation={navigation} title="Profile" />,
+                })}
+              />
+              <Stack.Screen
+                name="Member Integral"
+                component={MemberIntegralScreen}
+                options={({ navigation }) => ({
+                  header: () => <CustomHeader navigation={navigation} title="Member Points" />,
+                })}
+              />
+              <Stack.Screen
+                name="Order"
+                component={OrderScreen}
+                options={({ navigation }) => ({
+                  header: () => <CustomHeader navigation={navigation} title="My Order" />,
+                })}
+              />
+              <Stack.Screen
+                name="Order History"
+                component={OrderHistoryScreen}
+                options={({ navigation }) => ({
+                  header: () => <CustomHeader navigation={navigation} title="Order History" />,
+                })}
+              />
             </>
           )}
         </Stack.Navigator>

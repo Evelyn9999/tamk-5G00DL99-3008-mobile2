@@ -25,7 +25,7 @@ export default function LoginScreen({ navigation }) {
       const result = await login(email.trim(), password);
 
       if (result.success) {
-        // Navigation will happen automatically via App.js
+        // app will handle navigation
       } else {
         setError(result.error || 'Invalid email or password');
       }
@@ -41,7 +41,7 @@ export default function LoginScreen({ navigation }) {
     setPassword('demo123');
     setError('');
     setLoading(true);
-    // Auto-login with demo credentials
+    // login with demo account
     const result = await login('demo@bowlapp.com', 'demo123');
     if (!result.success) {
       setError(result.error || 'Demo login failed');

@@ -6,7 +6,7 @@ import { THEME_COLOR } from '../config/constants';
 export default function FavoritesScreen({ navigation }) {
   const { favorites, removeFavorite } = useBowlStore();
 
-  // Remove duplicates as a safety measure
+  // remove duplicates just in case
   const uniqueFavorites = favorites.filter((bowl, index, self) =>
     index === self.findIndex((b) => b.id === bowl.id)
   );
@@ -37,7 +37,7 @@ export default function FavoritesScreen({ navigation }) {
       <View style={styles.header}>
         <View>
           <Text style={styles.title}>Your Favorite Bowls</Text>
-          <Text style={styles.subtitle}>{uniqueFavorites.length} favorite{uniqueFavorites.length !== 1 ? 's' : ''}</Text>
+          <Text style={styles.subtitle}>{uniqueFavorites.length.toString()} favorite{uniqueFavorites.length !== 1 ? 's' : ''}</Text>
         </View>
         <TouchableOpacity
           style={styles.iconButton}

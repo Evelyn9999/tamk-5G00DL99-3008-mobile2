@@ -44,7 +44,7 @@ export const clearUserSession = async () => {
   }
 };
 
-// User accounts storage
+// save user accounts
 export const saveUserAccount = async (email, userData) => {
   try {
     const accounts = await getUserAccounts();
@@ -72,5 +72,62 @@ export const getUserAccount = async (email) => {
   } catch (e) {
     console.log(e);
     return null;
+  }
+};
+
+// save user points
+export const saveUserPoints = async (email, points) => {
+  try {
+    await AsyncStorage.setItem(`userPoints_${email.toLowerCase()}`, JSON.stringify(points));
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const getUserPoints = async (email) => {
+  try {
+    const data = await AsyncStorage.getItem(`userPoints_${email.toLowerCase()}`);
+    return data ? JSON.parse(data) : { total: 0, history: [] };
+  } catch (e) {
+    console.log(e);
+    return { total: 0, history: [] };
+  }
+};
+
+// cart storage
+export const saveCart = async (cart) => {
+  try {
+    await AsyncStorage.setItem('cart', JSON.stringify(cart));
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const getCart = async () => {
+  try {
+    const data = await AsyncStorage.getItem('cart');
+    return data ? JSON.parse(data) : [];
+  } catch (e) {
+    console.log(e);
+    return [];
+  }
+};
+
+// order history storage
+export const saveOrderHistory = async (email, orders) => {
+  try {
+    await AsyncStorage.setItem(`orderHistory_${email.toLowerCase()}`, JSON.stringify(orders));
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const getOrderHistory = async (email) => {
+  try {
+    const data = await AsyncStorage.getItem(`orderHistory_${email.toLowerCase()}`);
+    return data ? JSON.parse(data) : [];
+  } catch (e) {
+    console.log(e);
+    return [];
   }
 };
