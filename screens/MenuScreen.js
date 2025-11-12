@@ -27,7 +27,19 @@ export default function MenuScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Menu</Text>
+      <View style={styles.header}>
+        <Text style={styles.title}>Menu</Text>
+        <View style={styles.navButtons}>
+          <Button
+            title="❤️"
+            onPress={() => navigation.navigate('Favorites')}
+          />
+          <Button
+            title="👤"
+            onPress={() => navigation.navigate('Profile')}
+          />
+        </View>
+      </View>
       <FlatList
         data={bowls}
         keyExtractor={(item) => item.id.toString()}
@@ -47,7 +59,17 @@ export default function MenuScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 20 },
-  title: { fontSize: 22, fontWeight: 'bold', marginBottom: 10 },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  title: { fontSize: 22, fontWeight: 'bold' },
+  navButtons: {
+    flexDirection: 'row',
+    gap: 10,
+  },
   item: { fontSize: 18 },
   center: { flex: 1, textAlign: 'center', textAlignVertical: 'center' },
   card: { marginVertical: 10, padding: 10, backgroundColor: '#eee', borderRadius: 8 },
