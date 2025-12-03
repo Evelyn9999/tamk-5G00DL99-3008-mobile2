@@ -121,7 +121,6 @@ export default function MenuScreen({ navigation }) {
                 <Image
                   source={{ uri: item.image }}
                   style={styles.cardImage}
-                  defaultSource={require('../assets/icon.png')}
                 />
               ) : (
                 <View style={styles.cardIcon}>

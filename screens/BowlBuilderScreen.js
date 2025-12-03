@@ -55,7 +55,6 @@ export default function BowlBuilderScreen({ route, navigation }) {
           <Image
             source={{ uri: bowl.image }}
             style={styles.heroImage}
-            defaultSource={require('../assets/icon.png')}
           />
         ) : (
           <View style={styles.heroImagePlaceholder}>

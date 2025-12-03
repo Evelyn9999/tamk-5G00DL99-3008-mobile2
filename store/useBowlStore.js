@@ -111,8 +111,11 @@ export const useBowlStore = create((set, get) => ({
       return { success: false, error: 'Please enter both email and password' };
     }
 
+    // Normalize email to lowercase for consistent comparison
+    const normalizedEmail = email.toLowerCase().trim();
+
     // demo account
-    if (email === 'demo@bowlapp.com' && password === 'demo123') {
+    if (normalizedEmail === 'demo@bowlapp.com' && password === 'demo123') {
       const user = {
         email: 'demo@bowlapp.com',
         name: 'Demo User',
@@ -125,7 +128,7 @@ export const useBowlStore = create((set, get) => ({
     }
 
     // check if account exists
-    const account = await getUserAccount(email);
+    const account = await getUserAccount(normalizedEmail);
     if (account && account.password === password) {
       const user = {
         email: account.email,
